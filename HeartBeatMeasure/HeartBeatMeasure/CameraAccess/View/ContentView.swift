@@ -9,23 +9,6 @@ import SwiftUI
 
 import AVFoundation
 
-struct CameraPreviewView: UIViewRepresentable {
-    
-    var previewLayer: AVCaptureVideoPreviewLayer?
-    
-    func makeUIView(context: Context) -> UIView {
-            let previewView = UIView()
-            if let previewLayer = previewLayer {
-                previewLayer.frame = previewView.bounds
-                previewView.layer.addSublayer(previewLayer)
-            }
-            return previewView
-        }
-
-        func updateUIView(_ uiView: UIViewType, context: Context) {
-            // Update the view if needed
-        }
-}
 
 
 struct ContentView: View {
@@ -60,13 +43,16 @@ struct ContentView: View {
                 
             
             // Circular view to display camera feed
-            if let previewLayer = viewModel.previewLayer {
-                CameraPreviewView(previewLayer: previewLayer)
+            ZStack {
+                
+            FrameView(image: viewModel.frame)
                     .frame(width: 300,height: 300)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.green,lineWidth: 3))
-                    .padding(.top,75)
-            }
+                    .onAppear(perform: startTimer)
+                    .padding(.top,45)
+      
+              
+            }.frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .top)
 
 
 
